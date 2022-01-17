@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset = "utf-8">
+        <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+
+        <title>留言demo首页</title>
+
+        <!-- Bootstrap -->
+        <link href = "vendors/bootstrap/dist/css/bootstrap.min.css" rel = "stylesheet">
+        <!-- Font Awesome -->
+        <link rel = "stylesheet" href = "css/font-awesome.css">
+        <!-- NProgress -->
+        <link href = "vendors/nprogress/nprogress.css" rel = "stylesheet">
+        <!-- iCheck -->
+        <link href = "vendors/iCheck/skins/flat/green.css" rel = "stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href = "vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel = "stylesheet">
+        <!-- PNotify -->
+        <link href = "vendors/pnotify/dist/pnotify.css" rel = "stylesheet">
+        <link href = "vendors/pnotify/dist/pnotify.buttons.css" rel = "stylesheet">
+        <link href = "vendors/pnotify/dist/pnotify.nonblock.css" rel = "stylesheet">
+        <!-- SweetAlert2 -->
+        <link rel = "stylesheet" href = "/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+        <!-- Theme style -->
+        <link rel = "stylesheet" href = "/css/adminlte.min.css">
+        <!-- Toastr -->
+        <link rel = "stylesheet" href = "/plugins/toastr/toastr.min.css">
+        <!-- jQuery custom content scroller -->
+        <link href = "/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel = "stylesheet"/>
+
+        <!-- Custom Theme Style -->
+        <link href = "css/custom.css" rel = "stylesheet">
+        <link rel = "stylesheet" href = "css/bootstrap-tab.css">
+        <!-- overlayScrollbars -->
+        <link rel = "stylesheet" href = "plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+        <link href = "css/common-white.css" rel = "stylesheet">
+    </head>
+
+    <body class = "nav-sm footer_fixed">
+        <div class = "container body">
+            <div class = "main_container">
+                <div class = "col-md-3 left_col menu_fixed" id = "menu_container">
+                    <div class = "left_col scroll-view">
+                        <div class = "navbar nav_title"
+                             style = "border: 0;border-bottom: 1px solid rgba(0, 0, 0, 0.25)">
+                            <a href = "#" class = "site_title"><span style = "margin-left: 50px">DEMO</span></a>
+                        </div>
+                        <div class = "clearfix"></div>
+                        <br/>
+
+                        <!-- sidebar menu -->
+                        <div id = "sidebar-menu" class = "main_menu_side hidden-print main_menu">
+                            <div class = "menu_section">
+                                <ul class = "nav side-menu" id = "menu-ul">
+                                    <li>
+                                        <a href = "#" data = "" data-id = "" class = "myLeftMenu">
+                                            <i class = "fa fa-university nav-icon"></i>左侧菜单一
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "top_nav">
+                    <div class = "nav_menu">
+                        <div class = "nav toggle">
+                            <a id = "menu_toggle"><i class = "fa fa-bars"></i></a>
+                        </div>
+                        <nav class = "nav navbar-nav">
+                            <ul class = " navbar-right">
+                                <li class = "nav-item dropdown open" style = "padding-left: 15px;" id = "user-name-pan">
+                                    <a href = "javascript:;" class = "user-profile dropdown-toggle" aria-haspopup = "true"
+                                       data-toggle = "dropdown" aria-expanded = "false">
+                                        <img src = "img/1.png" alt = ""><span class = "hidden-xs" id = "userName">登陆</span>
+                                    </a>
+                                    <div class = "dropdown-menu dropdown-usermenu pull-right" id="logout-pan"
+                                         aria-labelledby = "navbarDropdown">
+                                        <!--<a href="#" class="dropdown-item"  data-toggle="modal" data-target="#modal-change-pwd">-->
+                                        <!--<i class="fa fa-unlock-alt changePwdColor"></i>-->
+                                        <!--修改密码</a>-->
+
+                                        <a href = "#" class = "dropdown-item" onclick = "logout()">
+                                        <i class = "fa fa-sign-out loginOutColor"></i>
+                                        退出登录</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class = "right_col" id = "container" role = "main">
+                    <iframe id = "myIframe" src = "comments.html" height = "auto" min-height = "300px" min-weight = "1080px"
+                            frameborder = "no" width = "100%" border = "0" marginwidth = "0" marginheight = "0"
+                            scrolling = "no"
+                            style = "margin-top: 3.5rem;"></iframe>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src = "/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery custom content scroller -->
+        <script src = "/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js"></script>
+
+        <!--SweetAlert2-->
+        <script src = "/plugins/sweetalert2/sweetalert2.all.js"></script>
+        <script src = "/js/config/sweetalert-config.js"></script>
+
+        <!-- jquery-validation -->
+        <script src = "/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src = "/plugins/jquery-validation/additional-methods.min.js"></script>
+        <script src = "/js/config/jquery-validate-config.js"></script>
+        <script src = "/js/bootstrap-tab.js"></script>
+        <script src = "/plugins/iframe-resizer/iframeResizer.min.js"></script>
+        <script src = "/js/common-white.js"></script>
+
+        <!-- Bootstrap -->
+        <script src = "/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- FastClick -->
+        <script src = "/vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src = "/vendors/nprogress/nprogress.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src = "/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src = "/vendors/iCheck/icheck.min.js"></script>
+
+        <script src = "/js/date-utils.js" type = "text/javascript"></script>
+        <!-- PNotify -->
+        <script src = "/vendors/pnotify/dist/pnotify.js"></script>
+        <script src = "/vendors/pnotify/dist/pnotify.buttons.js"></script>
+        <script src = "/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+        <script src = "./plugins/iframe-resizer/iframeResizer.min.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src = "/js/custom.js"></script>
+
+        <!-- AdminLTE App -->
+        <script src = "/js/adminlte.js"></script>
+        <script language = "JavaScript">
+            var userInfo = {};
+
+            $(function () {
+                $("body").off("click");
+                initPageData();
+
+                iFrameResize({
+                    log: false,
+                    autorisze:false,
+                    enableInPageLinks: true,
+                    inPageLinks: true,
+                    heightCalculationMethod: "documentElementOffset",
+                    scrolling:true,
+                    onResized: function(iframe, height, width, type){
+                        $(iframe.iframe).css("height", "calc(100vh - 7rem - 40px)");
+                    }
+                });
+            })
+
+
+            function logout() {
+                var action = "/api/profile/logout";
+                var data = {};
+                post(action, data, function () {
+                    top.window.location.href = "login.html";
+                }, function (msg) {
+                    Toast.fire({
+                        type: 'error',
+                        text: msg
+                    })
+                });
+            }
+
+            function initPageData() {
+                initUserInfo();
+            }
+
+            function initUserInfo() {
+                var action = "/current";
+                var data = {};
+                query(action, data, function (result) {
+                    var code = result.code;
+                    if (code != "200") {
+                        errorDialog(result.displayMessage);
+                        return;
+                    }
+                    userInfo = result.data;
+                    if(userInfo == null){
+                        $("#user-name-pan").html("<a href='login.html'>登陆</a>");
+                        $("#logout-pan").addClass("hide");
+                        return;
+                    }
+
+                    var userName = userInfo.name;
+                    $("#userName").html(userName);
+                }, function (msg) {
+                    errorDialog(msg)
+                });
+            }
+
+        </script>
+
+    </body>
+</html>

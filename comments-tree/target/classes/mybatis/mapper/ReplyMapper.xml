@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foxfxb.interviewee.mapper.ReplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foxfxb.interviewee.entity.po.ReplyEntity">
+        <id column="id" property="id" />
+        <result column="msg_id" property="msgId" />
+        <result column="reply_user_id" property="replyUserId" />
+        <result column="parent_id" property="parentId" />
+        <result column="create_time" property="createTime" />
+        <result column="reply_content" property="replyContent" />
+    </resultMap>
+
+    <resultMap id="replyBaseInfoMap" type="com.foxfxb.interviewee.entity.biz.ReplyBo">
+        <id column="id" property="id" />
+        <result column="msg_id" property="msgId" />
+        <result column="create_time" property="createTime" />
+        <result column="reply_content" property="replyContent" />
+        <association property="replyUser" column="reply_user_id" select="com.foxfxb.interviewee.mapper.UserMapper.selectUserBaseInfo"/>
+    </resultMap>
+
+</mapper>

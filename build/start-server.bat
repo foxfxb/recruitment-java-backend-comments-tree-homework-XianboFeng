@@ -1,0 +1,1 @@
+java -jar -Xms1024m -Xmx1024m -XX:MaxDirectMemorySize=1024m -XX:+UnlockDiagnosticVMOptions -XX:LogFile=./tree-comments/log/jvm.log intv-tree-comments.jar

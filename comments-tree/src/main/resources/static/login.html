@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv = "Expires" content = "0">
+        <meta http-equiv = "Pragma" content = "no-cache">
+        <meta http-equiv = "Cache-control" content = "no-cache">
+        <meta http-equiv = "Cache" content = "no-cache">
+        <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+        <meta charset = "utf-8">
+        <title>冯大帅的demo</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+
+        <!-- Font Awesome -->
+        <link rel = "stylesheet" href = "css/font-awesome.css">
+        <!-- Ionicons -->
+        <link rel = "stylesheet" href = "css/ionicons.css">
+        <!-- icheck bootstrap -->
+        <link rel = "stylesheet" href = "plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <!-- Theme style -->
+        <link rel = "stylesheet" href = "css/adminlte.css">
+        <!-- Toastr -->
+        <link rel = "stylesheet" href = "plugins/toastr/toastr.min.css">
+        <!-- SweetAlert2 -->
+        <link rel = "stylesheet" href = "plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link href = "css/fonts_googleapis.css" rel = "stylesheet">
+        <style>
+            .loginBox {
+                border-radius: 5px;
+                width: 350px;
+                margin-top: 32px;
+            }
+
+            .logoCenter {
+                width: 350px;
+            }
+
+            .loginButton, .registerButton {
+                border-radius: 30px;
+                font-size: 15px;
+            }
+
+            .fontText {
+                color: #333333;
+                font-weight: 600;
+                font-size: 21px;
+            }
+
+            .marginTop {
+                margin-top: 24px;
+            }
+
+            .loginMargin {
+                margin-top: -160px;
+            }
+
+            .logLarge {
+                width: 60%;
+            }
+
+            .line {
+                height: 10px;
+                border-bottom: 1px solid;
+                border-bottom-color: #CCCCCC;
+            }
+
+            .backGround {
+                background-image: url('https://test-xbck-crm.oss-cn-chengdu.aliyuncs.com/ueditor/5c1b5445d9388.jpg');
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+            }
+
+            .footer {
+                display: flex;
+                flex-direction: column;
+                color: white;
+                text-align: center;
+                position: fixed;
+                bottom: 20px;
+                font-size: 14px;
+                font-weight: 300;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class = "hold-transition login-page backGround">
+            <div class = "login-box loginMargin">
+                <div class = "login-logo logoCenter">
+                    <!--<img class = "logLarge" src = "img/logo2.png">-->
+                </div>
+                <div class = "card-body login-card-body brand-image elevation-3 loginBox">
+                    <div>
+                        <h4 class = "login-box-msg fontText">登录</h4>
+                    </div>
+                    <div class = "line"></div>
+                    <form id = "loginForm" action = "javascript:void(0);" class = "marginTop">
+                        <div class = "input-group mb-3">
+                            <input type = "account" class = "form-control" placeholder = "账号或邮箱" id = "loginName"
+                                   name = "loginName">
+                            <div class = "input-group-append">
+                                <div class = "input-group-text">
+                                    <span class = "fa fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "input-group mb-3 marginTop">
+                            <input type = "password" class = "form-control" placeholder = "密码" id = "password"
+                                   name = "password">
+                            <div class = "input-group-append">
+                                <div class = "input-group-text">
+                                    <span class = "fa fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "col-8" style = "margin-top: 30px">
+                            <div class = "icheck-primary">
+                                <input type = "checkbox" id = "remember">
+                                <label for = "remember" style = "font-size: 15px">
+                                    记住我
+                                </label>
+                            </div>
+                        </div>
+                        <div class = "mb-3 " style = "margin-top: 30px">
+                            <button type = "submit" class = "btn btn-primary btn-block loginButton">登录</button>
+                            <button type = "button" class = "btn btn-primary btn-block registerButton">注册</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <footer class = "footer">
+                <strong>冯大帅的专属领域</strong>
+            </footer>
+        </div>
+
+        <!-- jQuery -->
+        <script src = "plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src = "plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src = "js/adminlte.js"></script>
+        <script src = "js/common-white.js"></script>
+
+        <script src = "./plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src = "./plugins/jquery-validation/additional-methods.min.js"></script>
+        <!-- SweetAlert2 -->
+        <script src = "./plugins/sweetalert2/sweetalert2.min.js"></script>
+        <script src = "./js/config/sweetalert-config.js"></script>
+        <!-- Toastr -->
+        <script src = "./plugins/toastr/toastr.min.js"></script>
+
+        <script language = "JavaScript">
+
+            $(document).ready(function () {
+                $('#loginForm').validate({
+                    rules: {
+                        loginName: {
+                            required: true,
+                            // isPhone:true,
+                        },
+                        password: {
+                            required: true,
+                            minlength: 5
+                        },
+                    },
+                    messages: {
+                        loginName: {
+                            required: "请填写登陆账号",
+                        },
+                        password: {
+                            required: "请输入密码",
+                            minlength: "密码长度不足"
+                        },
+                    },
+                    errorElement: 'span',
+                    errorPlacement: function (error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.form-group').append(error);
+                    },
+                    highlight: function (element, errorClass, validClass) {
+                        $(element).addClass('is-invalid');
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
+                        $(element).removeClass('is-invalid');
+                    },
+                    submitHandler:function(form){
+                        console.info("aaaaaaa");
+                        login(form);
+                    }
+                });
+
+                $(".registerButton").on("click", function(){
+                   window.location.href = "register.html";
+                });
+            });
+
+            function login() {
+                var action = "/api/profile/login";
+                var data = {
+                    "userName": $("#loginName").val(),
+                    "password": $("#password").val(),
+                    "remember": $("#remember").is(":checked")
+                };
+                post(action, data, function (result) {
+                    var code = result.code;
+                    if (code == '200') {
+                        window.location.href = "index.html";
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            text: result.displayMessage
+                        })
+                    }
+                }, function (msg) {
+                    Toast.fire({
+                        type: 'error',
+                        text: msg
+                    })
+                });
+            }
+
+        </script>
+    </body>
+</html>

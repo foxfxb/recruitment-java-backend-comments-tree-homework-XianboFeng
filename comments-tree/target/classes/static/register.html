@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+        <title>注册页</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+        <!-- Bootstrap -->
+        <link href = "vendors/bootstrap/dist/css/bootstrap.min.css" rel = "stylesheet">
+        <!-- Font Awesome -->
+        <link rel = "stylesheet" href = "css/font-awesome.css">
+        <!-- NProgress -->
+        <link href = "vendors/nprogress/nprogress.css" rel = "stylesheet">
+        <!-- iCheck -->
+        <link href = "vendors/iCheck/skins/flat/green.css" rel = "stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href = "vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel = "stylesheet">
+        <!-- PNotify -->
+        <link href = "vendors/pnotify/dist/pnotify.css" rel = "stylesheet">
+        <link href = "vendors/pnotify/dist/pnotify.buttons.css" rel = "stylesheet">
+        <link href = "vendors/pnotify/dist/pnotify.nonblock.css" rel = "stylesheet">
+        <!-- SweetAlert2 -->
+        <link rel = "stylesheet" href = "plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+        <!-- Theme style -->
+        <link rel = "stylesheet" href = "css/adminlte.min.css">
+        <!-- Toastr -->
+        <link rel = "stylesheet" href = "plugins/toastr/toastr.min.css">
+        <!-- jQuery custom content scroller -->
+        <link href = "vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel = "stylesheet"/>
+
+        <!-- Custom Theme Style -->
+        <link href = "css/custom.css" rel = "stylesheet">
+        <link rel = "stylesheet" href = "css/bootstrap-tab.css">
+        <!-- overlayScrollbars -->
+        <link rel = "stylesheet" href = "plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+        <link href = "css/common-white.css" rel = "stylesheet">
+    </head>
+    <body class = "hold-transition register-page">
+        <div class = "register-box">
+            <div class = "register-logo">
+                <a href = "comments.html"><b>Dis</b>tance</a>
+            </div>
+
+            <div class = "card">
+                <div class = "card-body register-card-body">
+                    <p class = "login-box-msg">注册账户</p>
+
+                    <form id="registForm" action = "javascript:void(0);">
+                        <div class = "input-group mb-3">
+                            <input type = "text" class = "form-control" placeholder = "登陆名" id="loginName" name="loginName">
+                            <div class = "input-group-append">
+                                <div class = "input-group-text">
+                                    <span class = "fa fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "input-group mb-3">
+                            <input type = "email" class = "form-control" placeholder = "邮箱" id="email" name="email">
+                            <div class = "input-group-append">
+                                <div class = "input-group-text">
+                                    <span class = "fa fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "input-group mb-3">
+                            <input type = "password" class = "form-control" placeholder = "密码" id="password" name="password">
+                            <div class = "input-group-append">
+                                <div class = "input-group-text">
+                                    <span class = "fa fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "input-group mb-3">
+                            <input type = "password" class = "form-control" placeholder = "确认密码" id="retypePassword" name="retypePassword">
+                            <div class = "input-group-append">
+                                <div class = "input-group-text">
+                                    <span class = "fa fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "text-center">
+                            <button type = "submit" class = "btn btn-primary btn-block">注册</button>
+                        </div>
+                    </form>
+
+                    <a href = "login.html" class = "text-center">使用已有账号登陆</a>
+                </div>
+                <!-- /.form-box -->
+            </div><!-- /.card -->
+        </div>
+        <!-- /.register-box -->
+
+        <!-- jQuery -->
+        <script src = "plugins/jquery/jquery.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src = "plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src = "js/adminlte.js"></script>
+        <script src = "./plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src = "./plugins/jquery-validation/additional-methods.min.js"></script>
+        <script src = "./plugins/jquery-validation/localization/messages_zh.js"></script>
+        <script src = "./js/config/jquery-validate-config.js"></script>
+        <!-- SweetAlert2 -->
+        <script src = "./plugins/sweetalert2/sweetalert2.min.js"></script>
+        <script src = "./js/config/sweetalert-config.js"></script>
+        <!-- Toastr -->
+        <script src = "./plugins/toastr/toastr.min.js"></script>
+        <script src = "js/common-white.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#registForm').validate({
+                    rules: {
+                        loginName: {
+                            required: true,
+                            loginNameCheck: true,
+                            minlength: 5,
+                            maxlength: 20,
+                            // regex: /^[A-Za-z0-9]{5,20}/
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        password: {
+                            required: true,
+                            pwdCheck: true,
+                            minlength: 8,
+                            maxlength: 25,
+                        },
+                        retypePassword: {
+                            required: true,
+                            pwdCheck: true,
+                            minlength: 8,
+                            maxlength: 25,
+                            equalTo: "#password",
+                        },
+                    },
+                    messages: {
+                        loginName: {
+                            required: "请填写登陆账号",
+                            loginNameCheck: "登陆名只能大小写字母和数字的组合，不能使用特殊字符，长度在5-20之间",
+                            // regex: "登陆名只能大小写字母和数字的组合，不能使用特殊字符，长度在5-20之间"
+
+                        },
+                        email: {
+                            required: "请填写邮箱",
+                            email: "请输入正确的邮箱"
+                        },
+                        password: {
+                            required: "请输入密码",
+                            minlength: "密码长度不足",
+                            pwdCheck: "密码应为长度5-20位大小写字母+数字+特殊字符组成"
+                        },
+                    },
+                    errorElement: 'span',
+                    errorPlacement: function (error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.form-group').append(error);
+                    },
+                    highlight: function (element, errorClass, validClass) {
+                        $(element).addClass('is-invalid');
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
+                        $(element).removeClass('is-invalid');
+                    },
+                    submitHandler:function(form){
+                        register();
+                    }
+                });
+
+            });
+
+            function register(){
+                var action = "/regist";
+                var data = {
+                    "userName": $("#loginName").val(),
+                    "email": $("#email").val(),
+                    "password": $("#password").val(),
+                };
+                put(action, data, function (result) {
+                    var code = result.code;
+                    if (code == '200') {
+                        window.location.href = "login.html";
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            text: result.displayMessage
+                        })
+                    }
+                }, function (msg) {
+                    Toast.fire({
+                        type: 'error',
+                        text: msg
+                    })
+                });
+            }
+        </script>
+    </body>
+</html>

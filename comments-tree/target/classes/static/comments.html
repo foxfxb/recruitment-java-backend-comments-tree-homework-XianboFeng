@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>评论插件</title>
+		<!-- Bootstrap -->
+		<link href = "vendors/bootstrap/dist/css/bootstrap.min.css" rel = "stylesheet">
+		<!-- Font Awesome -->
+		<link rel = "stylesheet" href = "css/font-awesome.css">
+		<!-- NProgress -->
+		<link href = "vendors/nprogress/nprogress.css" rel = "stylesheet">
+		<!-- iCheck -->
+		<link href = "vendors/iCheck/skins/flat/green.css" rel = "stylesheet">
+		<!-- bootstrap-progressbar -->
+		<link href = "vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel = "stylesheet">
+		<!-- PNotify -->
+		<link href = "vendors/pnotify/dist/pnotify.css" rel = "stylesheet">
+		<link href = "vendors/pnotify/dist/pnotify.buttons.css" rel = "stylesheet">
+		<link href = "vendors/pnotify/dist/pnotify.nonblock.css" rel = "stylesheet">
+		<!-- SweetAlert2 -->
+		<link rel = "stylesheet" href = "/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+		<!-- Theme style -->
+		<link rel = "stylesheet" href = "/css/adminlte.min.css">
+		<!-- Toastr -->
+		<link rel = "stylesheet" href = "/plugins/toastr/toastr.min.css">
+		<!-- jQuery custom content scroller -->
+		<link href = "/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel = "stylesheet"/>
+		<!-- Custom Theme Style -->
+		<link href = "css/custom.css" rel = "stylesheet">
+		<link rel = "stylesheet" href = "plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+		<link href = "css/common-white.css" rel = "stylesheet">
+		<style>
+			.container{
+				width: 1000px;
+			}
+			.commentbox{
+				width: 900px;
+				margin: 20px auto;
+			}
+			.mytextarea {
+				width: 100%;
+				overflow: auto;
+				word-break: break-all;
+				height: 100px;
+				color: #000;
+				font-size: 1em;
+				resize: none;
+			}
+			.comment-list{
+				width: 900px;
+				margin: 20px auto;
+				clear: both;
+				padding-top: 20px;
+			}
+			.comment-list .comment-info{
+				position: relative;
+				margin-bottom: 20px;
+				margin-bottom: 20px;
+				border-bottom: 1px solid #ccc;
+			}
+			.comment-list .comment-info header{
+				width: 10%;
+				position: absolute;
+			}
+			.comment-list .comment-info header img{
+				width: 100%;
+				border-radius: 50%;
+				padding: 5px;
+			}
+			.comment-list .comment-info .comment-right{
+				padding:5px 0px 5px 11%;
+			}
+			.comment-list .comment-info .comment-right h3{
+				margin: 5px 0px;
+			}
+			.comment-list .comment-info .comment-right .comment-content-header{
+				height: 25px;
+			}
+			.comment-list .comment-info .comment-right .comment-content-header span,.comment-list .comment-info .comment-right .comment-content-footer span{
+				padding-right: 2em;
+				color: #aaa;
+			}
+			.comment-list .comment-info .comment-right .comment-content-header span,.comment-list .comment-info .comment-right .comment-content-footer span.reply-btn,.send,.reply-list-btn{
+				cursor: pointer;
+			}
+			.comment-list .comment-info .comment-right .reply-list {
+				border-left: 3px solid #ccc;
+				padding-left: 7px;
+			}
+			.comment-list .comment-info .comment-right .reply-list .reply{
+				border-bottom: 1px dashed #ccc;
+			}
+			.comment-list .comment-info .comment-right .reply-list .reply div span{
+				padding-left: 10px;
+			}
+			.comment-list .comment-info .comment-right .reply-list .reply p span{
+				padding-right: 2em;
+				color: #aaa;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="container">
+			<div class="commentbox">
+				<textarea cols="80" rows="5" placeholder="来说几句吧......" class="form-control mytextarea hundred2String" id="content" maxlength="200"></textarea>
+				<div class="text-right hide" id="text-count-pan">
+					字数统计:
+					<a href="javascript:void(0)" id="textCount"></a>
+				</div>
+				<div class="btn btn-info pull-right" id="comment">评论</div>
+			</div>
+			<!--<div class="commentbox">-->
+				<!--<div class="col-sm-12">-->
+					<!--<t id="msg_content" name="msg_content" type="text/plain">-->
+					<!--</t>-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<div class="comment-list">
+			</div>
+		</div>
+		<script src="./plugins/jquery/jquery.min.js"></script>
+		<!-- Bootstrap 4 -->
+		<script src = "plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="./js/jquery.comment.js" ></script>
+		<script src="./js/bootstrap.js"></script>
+		<script src = "js/common-white.js"></script>
+		<!-- SweetAlert2 -->
+		<script src = "./plugins/sweetalert2/sweetalert2.min.js"></script>
+		<script src = "./js/config/sweetalert-config.js"></script>
+		<!-- Toastr -->
+		<script src = "./plugins/toastr/toastr.min.js"></script>
+
+		<!--ueditor-->
+		<!-- 配置文件 -->
+		<script src="./ueditor/ueditor.config.js" type="text/javascript"></script>
+		<!-- 编辑器源码文件 -->
+		<script src="./ueditor/ueditor.all.min.js" type="text/javascript"></script>
+		<script src="./ueditor/lang/zh-cn/zh-cn.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./plugins/iframe-resizer/iframeResizer.contentWindow.min.js"></script>
+		<script src="./js/date-utils.js"></script>
+		<script>
+            //初始化数据
+            // var arr = [
+            //     {id:1,img:"./img/1.png",replyName:"帅大叔",beReplyName:"匿名",content:"同学聚会，看到当年追我的屌丝开着宝马车带着他老婆来了，他老婆是我隔壁宿舍的同班同学，心里后悔极了。",time:"2017-10-17 11:42:53",address:"深圳",osname:"",browse:"谷歌",replyBody:[]},
+            //     {id:2,img:"./img/1.png",replyName:"匿名",beReplyName:"",content:"到菜市场买菜，看到一个孩子在看摊，我问：“一只鸡多少钱？” 那孩子回答：“23。” 我又问：“两只鸡多少钱？” 孩子愣了一下，一时间没算过来，急中生智大吼一声：“一次只能买一只！”",time:"2017-10-17 11:42:53",address:"深圳",osname:"",browse:"谷歌",replyBody:[{id:3,img:"",replyName:"帅大叔",beReplyName:"匿名",content:"来啊，我们一起吃鸡",time:"2017-10-17 11:42:53",address:"",osname:"",browse:"谷歌"}]},
+            //     {id:3,img:"./img/1.png",replyName:"帅大叔",beReplyName:"匿名",content:"同学聚会，看到当年追我的屌丝开着宝马车带着他老婆来了，他老婆是我隔壁宿舍的同班同学，心里后悔极了。",time:"2017-10-17 11:42:53",address:"深圳",osname:"win10",browse:"谷歌",replyBody:[]}
+            // ];
+            // $(function(){
+            //     $(".comment-list").addCommentList({data:arr,add:""});
+            //     $("#comment").click(function(){
+            //         var obj = new Object();
+            //         obj.img="./images/img.jpg";
+            //         obj.replyName="匿名";
+            //         obj.content=$("#content").val();
+            //         obj.browse="深圳";
+            //         obj.osname="win10";
+            //         obj.replyBody="";
+            //         $(".comment-list").addCommentList({data:[],add:obj});
+            //     });
+            // })
+
+			var msgContent, MAX_TEXT_LENGTH = 200;
+			var DEFUALT_NOTICE = "当前已输入$LENGTH1字,还可以输入$LENGTH2字";
+            $(function () {
+                initPageData();
+
+                $("#content").on("input", function () {
+					var content = $(this).val();
+					var length = content.length;
+					if(length > 1){
+					    $("#text-count-pan").removeClass("hide");
+					}else{
+                        $("#text-count-pan").addClass("hide");
+					}
+					$("#textCount").html(DEFUALT_NOTICE.replace("$LENGTH1", length).replace("$LENGTH2", MAX_TEXT_LENGTH - length));
+                })
+
+				$("#comment").on("click", writeComments);
+            })
+
+            function initPageData() {
+                queryComments();
+            }
+
+            function queryComments(){
+                var action = "/api/message/list";
+                var data = {};
+                query(action, data, function (result) {
+                    var code = result.code;
+                    if (code != "200") {
+                        errorDialog(result.displayMessage);
+                        return;
+                    }
+                    if(result.data == null || result.data.length == 0){
+                        return;
+					}
+					var arr = [];
+					$.each(result.data, function(i, msgObj){
+					    var msg = new Object;
+					    msg.id = msgObj.id;
+					    msg.img = "./img/1.png";
+					    msg.replyName = msgObj.userBo.userName;
+					    msg.content = msgObj.content;
+					    msg.time = getDateDiff(msgObj.createTime);
+
+					    if(msgObj.replyList != null){
+					        msg.replyBody = [];
+					        $.each(msgObj.replyList, function(j, replyObj){
+					            var reply = new Object();
+					            reply.id = replyObj.id;
+                                reply.img = "./img/1.png";
+                                reply.replyName = replyObj.replyUser.userName;
+                                reply.time = getDateDiff(replyObj.createTime)
+
+                                var beReplyUser = replyObj.replyBo;
+                                if(beReplyUser == null){
+                                    reply.beReplyName = msg.replyName;
+								}else {
+                                    reply.beReplyName = beReplyUser.replyUser.userName;
+                                }
+                                reply.content = replyObj.replyContent;
+                                reply.msgId = msg.id;
+                                msg.replyBody.push(reply);
+					        })
+						}
+
+					    arr.push(msg);
+					});
+                    $(".comment-list").addCommentList({data:arr,add:"", replyContentFun: writeReply});
+                }, function (msg) {
+                    errorDialog(msg)
+                });
+			}
+
+			function writeComments(){
+
+                if(!isLogin()){
+                    errorDialog("请先登陆");
+                    return;
+				}
+
+                if($("#content").val() == null || $("#content").val().length <= 3){
+                    errorDialog("别吝啬，至少写3个字再发表吧");
+                    return;
+				}
+
+                var action = "/api/message/write";
+                var data = {
+                    "content": $("#content").val()
+				};
+                put(action, data, function (result) {
+                    var code = result.code;
+                    if (code != "200") {
+                        errorDialog(result.displayMessage);
+                        return;
+                    }
+					top.window.location.href = "index.html";
+                }, function (msg) {
+                    errorDialog(msg)
+                });
+			}
+
+			function writeReply(msgId, content, parentId){
+
+                if(!isLogin()){
+                    errorDialog("请先登陆");
+                    return;
+                }
+
+                var action = "/api/reply/write";
+                var data = {
+                    "msgId": msgId,
+                    "parentId": parentId,
+					"content": content
+				};
+                put(action, data, function (result) {
+                    var code = result.code;
+                    if (code != "200") {
+                        errorDialog(result.displayMessage);
+                        return;
+                    }
+                    top.window.location.href = "index.html";
+                }, function (msg) {
+                    errorDialog(msg)
+                });
+			}
+		</script>
+	</body>
+</html>
